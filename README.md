@@ -1,5 +1,5 @@
 # Deck of Cards
-Deck of cards is an Android application that can be used to create decks and draw cards from them.
+Deck of Cards is an Android application that can be used to create decks and draw cards from them.
 Created decks can be customized. For example, certain suits can be excluded and Jokers can be added.
 When drawing cards from the deck, the deck can be shuffled or left in order.
 Cards drawn from decks can be displayed in pseudo-3D by rotating the image based on the rotation of the device running the app.
