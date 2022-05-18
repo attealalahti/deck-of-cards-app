@@ -36,11 +36,10 @@ class DeckViewerActivity : AppCompatActivity() {
                 Log.d("api", it.toString())
 
                 // Update imageView with the drawn card's image
-                var newImage: Bitmap? = null
                 thread {
                     try {
                         val stream = java.net.URL(it.cards[0].image).openStream()
-                        newImage = BitmapFactory.decodeStream(stream)
+                        val newImage = BitmapFactory.decodeStream(stream)
                         runOnUiThread {
                             cardImageView.setImageBitmap(newImage)
                         }
