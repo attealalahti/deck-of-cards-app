@@ -1,5 +1,6 @@
 package fi.alalahti.deckofcards
 
+import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,6 +13,8 @@ class APICallback<T>(val callback: (T) -> Unit) : Callback<T> {
     }
 
     override fun onFailure(call: Call<T>, t: Throwable) {
-        TODO("Not yet implemented")
+        if (t.message != null) {
+            Log.d("api", t.message!!)
+        }
     }
 }
