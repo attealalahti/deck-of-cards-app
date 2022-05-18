@@ -15,7 +15,7 @@ class DeckViewerActivity : AppCompatActivity() {
     }
 
     fun drawCard(button: View) {
-        API.drawCard(intent.getStringExtra("deck_id")!!) {
+        APIUtil.drawCard(intent.getStringExtra("deck_id")!!) {
             Log.d("api", it.toString())
         }
     }

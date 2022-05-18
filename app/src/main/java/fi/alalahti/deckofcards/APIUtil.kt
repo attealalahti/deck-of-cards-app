@@ -7,7 +7,7 @@ import retrofit2.Response
 import java.lang.Exception
 import kotlin.concurrent.thread
 
-class API {
+class APIUtil {
     companion object {
         fun createDeck(callback: (Deck) -> Unit) {
             try {
