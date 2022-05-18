@@ -10,7 +10,6 @@ class DeckViewerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_deck_viewer)
-        findViewById<TextView>(R.id.textView).text = intent.getStringExtra("deck_id")
     }
 
     fun drawCard(button: View) {
