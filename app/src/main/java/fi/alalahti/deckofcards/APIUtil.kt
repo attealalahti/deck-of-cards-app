@@ -10,18 +10,10 @@ import kotlin.concurrent.thread
 class APIUtil {
     companion object {
         fun createDeck(callback: (Deck) -> Unit) {
-            try {
-                APIService.getInstance().createDeck().enqueue(APICallback<Deck>(callback))
-            } catch (e: Exception) {
-                Log.d("api", e.message.toString())
-            }
+            APIService.getInstance().createDeck().enqueue(APICallback<Deck>(callback))
         }
         fun drawCard(deck_id: String, callback: (Draw) -> Unit) {
-            try {
-                APIService.getInstance().drawCard(deck_id).enqueue(APICallback<Draw>(callback))
-            } catch (e: Exception) {
-                Log.d("api", e.message.toString())
-            }
+            APIService.getInstance().drawCard(deck_id).enqueue(APICallback<Draw>(callback))
         }
     }
 }
