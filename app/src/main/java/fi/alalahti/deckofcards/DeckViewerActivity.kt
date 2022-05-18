@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.lang.Exception
 import kotlin.concurrent.thread
@@ -13,11 +14,19 @@ import kotlin.concurrent.thread
 class DeckViewerActivity : AppCompatActivity() {
 
     lateinit var cardImageView: ImageView
+    lateinit var remainingCounter: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_deck_viewer)
         cardImageView = findViewById(R.id.cardImageView)
+        remainingCounter = findViewById(R.id.remainingCounter)
+
+        // Initialize how many cards remain in the deck
+        var remaining = intent.getIntExtra("remaining", -1)
+        if (remaining != -1) {
+            updateRemainingCounter(remaining)
+        }
     }
 
     fun drawCard(button: View) {
@@ -39,7 +48,21 @@ class DeckViewerActivity : AppCompatActivity() {
                         e.printStackTrace()
                     }
                 }
+
+                // Update counter with how many cards remain in the deck
+                updateRemainingCounter(it.remaining)
+
+                // Disable after all cards have been drawn
+                if (it.remaining.toInt() <= 0) {
+                    button.isEnabled = false
+                }
             })
+        }
+    }
+
+    fun updateRemainingCounter(count: Number) {
+        runOnUiThread {
+            remainingCounter.text = "Cards remaining: ${count}"
         }
     }
 

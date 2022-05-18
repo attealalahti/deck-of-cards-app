@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         APIService.getInstance().createDeck().enqueue(APICallback {
             val intent = Intent(this, DeckViewerActivity::class.java)
             intent.putExtra("deck_id", it.deck_id)
+            intent.putExtra("remaining", it.remaining.toInt())
             startActivity(intent)
         })
     }

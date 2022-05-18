@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".DeckViewerActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
-        android:onClick="drawCard"
-        android:text="Draw a Card"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
     <ImageView
         android:id="@+id/cardImageView"
         android:layout_width="226dp"
@@ -28,5 +17,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/blank" />
 
+    <TextView
+        android:id="@+id/remainingCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cards remaining: ?"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardImageView"
+        app:layout_constraintVertical_bias="0.707" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:onClick="drawCard"
+        android:text="Draw a Card"
+        android:textSize="20dp"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
