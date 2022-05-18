@@ -10,13 +10,15 @@ class DeckViewerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_deck_viewer)
-        val deck_id = intent.getStringExtra("deck_id")
-        findViewById<TextView>(R.id.textView).text = deck_id
+        findViewById<TextView>(R.id.textView).text = intent.getStringExtra("deck_id")
     }
 
     fun drawCard(button: View) {
-        APIUtil.drawCard(intent.getStringExtra("deck_id")!!) {
-            Log.d("api", it.toString())
+        val deck_id = intent.getStringExtra("deck_id")
+        if (deck_id != null) {
+            APIService.getInstance().drawCard(deck_id).enqueue(APICallback {
+                Log.d("api", it.toString())
+            })
         }
     }
 

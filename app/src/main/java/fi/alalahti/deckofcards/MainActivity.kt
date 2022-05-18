@@ -12,10 +12,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun createDeck(button : View) {
-        APIUtil.createDeck {
+        APIService.getInstance().createDeck().enqueue(APICallback {
             val intent = Intent(this, DeckViewerActivity::class.java)
             intent.putExtra("deck_id", it.deck_id)
             startActivity(intent)
-        }
+        })
     }
 }
