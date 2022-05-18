@@ -12,17 +12,7 @@ class API {
         fun createDeck(callback: (Deck) -> Unit) {
             thread {
                 try {
-                    APIService.getInstance().createDeck().enqueue(object:
-                        Callback<Deck> {
-                        override fun onResponse(call: Call<Deck>?, response: Response<Deck>?) {
-                            if (response?.body() != null) {
-                                callback(response.body() as Deck)
-                            }
-                        }
-                        override fun onFailure(call: Call<Deck>, t: Throwable) {
-                            TODO("Not yet implemented")
-                        }
-                    })
+                    APIService.getInstance().createDeck().enqueue(APICallback<Deck>(callback))
                 } catch (e: Exception) {
                     Log.d("api", e.message.toString())
                 }
