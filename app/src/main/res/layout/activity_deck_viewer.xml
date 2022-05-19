@@ -50,6 +50,7 @@
         android:padding="15dp"
         android:text="Shuffle"
         android:textSize="18sp"
+        android:onClick="shuffle"
         app:layout_constraintBottom_toTopOf="@+id/drawButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
