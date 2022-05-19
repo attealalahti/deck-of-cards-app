@@ -35,6 +35,9 @@ interface APIService {
     @GET("deck/{deck_id}/draw/?count=1")
     fun drawCard(@Path("deck_id") deck_id: String): Call<Draw>
 
+    @GET("deck/{deck_id}/shuffle/?remaining=true")
+    fun shuffleDeck(@Path("deck_id") deck_id: String): Call<Deck>
+
     companion object {
         var apiService: APIService? = null
         fun getInstance(): APIService {
