@@ -54,6 +54,8 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
                 registerRotationSensor()
             } else {
                 unregisterRotationSensor()
+                cardImageView.rotationX = 0f
+                cardImageView.rotationY = 0f
             }
         }
     }
@@ -126,7 +128,8 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_ROTATION_VECTOR) {
-            Log.d("sensor", "${event.values[0]}, ${event.values[1]}, ${event.values[2]}")
+            cardImageView.rotationX = event.values[0] * 90
+            cardImageView.rotationY = event.values[1] * -90
         }
     }
 
