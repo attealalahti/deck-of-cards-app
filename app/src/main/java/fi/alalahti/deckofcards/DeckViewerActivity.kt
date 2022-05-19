@@ -1,7 +1,11 @@
 package fi.alalahti.deckofcards
 
-import android.graphics.Bitmap
+import android.content.Context
 import android.graphics.BitmapFactory
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,16 +14,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import java.lang.Exception
 import kotlin.concurrent.thread
 
-class DeckViewerActivity : AppCompatActivity() {
+class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
 
     lateinit var cardImageView: ImageView
     lateinit var remainingCounter: TextView
     lateinit var shuffleButton: Button
     lateinit var drawButton: Button
+    lateinit var pseudo3DSwitch: SwitchCompat
     var deck_id: String? = null
+    lateinit var sensorManager: SensorManager
+    lateinit var rotationSensor: Sensor
+    val sensorSamplingPeriod = 100000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +37,45 @@ class DeckViewerActivity : AppCompatActivity() {
         remainingCounter = findViewById(R.id.remainingCounter)
         shuffleButton = findViewById(R.id.shuffleButton)
         drawButton = findViewById(R.id.drawButton)
+        pseudo3DSwitch = findViewById(R.id.pseudo3DSwitch)
         deck_id = intent.getStringExtra("deck_id")
+
+        sensorManager  = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
 
         // Initialize how many cards remain in the deck
         val remaining = intent.getIntExtra("remaining", -1)
         if (remaining != -1) {
             updateRemainingCounter(remaining)
+        }
+
+        pseudo3DSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                registerRotationSensor()
+            } else {
+                unregisterRotationSensor()
+            }
+        }
+    }
+
+    fun registerRotationSensor() {
+        sensorManager.registerListener(this, rotationSensor, sensorSamplingPeriod)
+    }
+    fun unregisterRotationSensor() {
+        sensorManager.unregisterListener(this, rotationSensor)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (pseudo3DSwitch.isChecked) {
+            unregisterRotationSensor()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (pseudo3DSwitch.isChecked) {
+            registerRotationSensor()
         }
     }
 
@@ -82,4 +124,13 @@ class DeckViewerActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event?.sensor?.type == Sensor.TYPE_ROTATION_VECTOR) {
+            Log.d("sensor", "${event.values[0]}, ${event.values[1]}, ${event.values[2]}")
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, p1: Int) {
+
+    }
 }
