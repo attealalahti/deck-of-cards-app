@@ -16,12 +16,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import java.lang.Exception
+import java.util.*
 import kotlin.concurrent.thread
 
 class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
 
     lateinit var cardImageView: ImageView
     lateinit var remainingCounter: TextView
+    lateinit var cardNameView: TextView
     lateinit var shuffleButton: Button
     lateinit var drawButton: Button
     lateinit var pseudo3DSwitch: SwitchCompat
@@ -35,6 +37,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.activity_deck_viewer)
         cardImageView = findViewById(R.id.cardImageView)
         remainingCounter = findViewById(R.id.remainingCounter)
+        cardNameView = findViewById(R.id.cardNameView)
         shuffleButton = findViewById(R.id.shuffleButton)
         drawButton = findViewById(R.id.drawButton)
         pseudo3DSwitch = findViewById(R.id.pseudo3DSwitch)
@@ -84,15 +87,17 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
     fun drawCard(button: View) {
         if (deck_id != null) {
             APIService.getInstance().drawCard(deck_id!!).enqueue(APICallback {
-                Log.d("api", it.toString())
+                val card = it.cards[0]
 
                 // Update imageView with the drawn card's image
                 thread {
                     try {
-                        val stream = java.net.URL(it.cards[0].image).openStream()
+                        val stream = java.net.URL(card.image).openStream()
                         val newImage = BitmapFactory.decodeStream(stream)
                         runOnUiThread {
                             cardImageView.setImageBitmap(newImage)
+                            cardNameView.text = getCardName(card.value, card.suit)
+                            cardImageView.contentDescription = getCardName(card.value, card.suit)
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -133,7 +138,14 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, p1: Int) {
+    override fun onAccuracyChanged(sensor: Sensor?, p1: Int) {}
 
+    fun getCardName(value: String, suit: String): String {
+        if (value == "JOKER") {
+            return "Joker"
+        } else {
+            // Make value and suit lowercase and capitalize their first letters
+            return "${value.lowercase().replaceFirstChar { it.uppercase() }} of ${suit.lowercase().replaceFirstChar { it.uppercase() }}"
+        }
     }
 }
