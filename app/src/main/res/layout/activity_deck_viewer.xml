@@ -17,7 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.279"
-        app:srcCompat="@drawable/back" />
+        app:srcCompat="@drawable/back"
+        android:contentDescription="Card back image" />
 
     <TextView
         android:id="@+id/remainingCounter"
@@ -25,11 +26,22 @@
         android:layout_height="wrap_content"
         android:text="Cards remaining: ?"
         android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardNameView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardImageView" />
+
+    <TextView
+        android:id="@+id/cardNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/pseudo3DSwitch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardImageView"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.776" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/pseudo3DSwitch"
