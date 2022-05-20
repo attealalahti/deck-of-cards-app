@@ -1,6 +1,7 @@
 package fi.alalahti.deckofcards
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -15,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import java.io.ByteArrayOutputStream
 import java.lang.Exception
 import java.util.*
 import kotlin.concurrent.thread
@@ -31,6 +33,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
     lateinit var sensorManager: SensorManager
     lateinit var rotationSensor: Sensor
     val sensorSamplingPeriod = 100000
+    var cardImage: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +97,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
                     try {
                         val stream = java.net.URL(card.image).openStream()
                         val newImage = BitmapFactory.decodeStream(stream)
+                        cardImage = newImage
                         runOnUiThread {
                             cardImageView.setImageBitmap(newImage)
                             cardNameView.text = getCardName(card.value, card.suit)
@@ -146,6 +150,27 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
         } else {
             // Make value and suit lowercase and capitalize their first letters
             return "${value.lowercase().replaceFirstChar { it.uppercase() }} of ${suit.lowercase().replaceFirstChar { it.uppercase() }}"
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        if (cardImage != null) {
+            // Compress image bitmap to a bytearray so it can be put into the bundle
+            val stream = ByteArrayOutputStream()
+            cardImage!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val byteArray = stream.toByteArray()
+            outState.putByteArray("cardImage", byteArray)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val cardImageByteArray = savedInstanceState.getByteArray("cardImage")
+        if (cardImageByteArray != null) {
+            // Decode bytearray back to an image
+            cardImage = BitmapFactory.decodeByteArray(cardImageByteArray, 0, cardImageByteArray.size)
+            cardImageView.setImageBitmap(cardImage)
         }
     }
 }
