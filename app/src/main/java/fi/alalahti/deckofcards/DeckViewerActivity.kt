@@ -161,6 +161,9 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
             val byteArray = stream.toByteArray()
             outState.putByteArray("cardImage", byteArray)
         }
+        outState.putString("cardName", cardNameView.text.toString())
+        outState.putString("cardImageDescription", cardImageView.contentDescription.toString())
+
         super.onSaveInstanceState(outState)
     }
 
@@ -172,5 +175,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
             cardImage = BitmapFactory.decodeByteArray(cardImageByteArray, 0, cardImageByteArray.size)
             cardImageView.setImageBitmap(cardImage)
         }
+        cardNameView.text = savedInstanceState.getString("cardName")
+        cardImageView.contentDescription = savedInstanceState.getString("cardImageDescription")
     }
 }
