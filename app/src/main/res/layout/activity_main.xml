@@ -30,7 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/includeTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/includeTextView"
+        android:contentDescription="Spade button unselected" />
 
     <TextView
         android:id="@+id/textView"
@@ -55,7 +56,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spadeButton" />
+        app:layout_constraintTop_toBottomOf="@+id/spadeButton"
+        android:contentDescription="Diamond button unselected"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -80,7 +82,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diamondButton" />
+        app:layout_constraintTop_toBottomOf="@+id/diamondButton"
+        android:contentDescription="Club button unselected"/>
 
     <TextView
         android:id="@+id/textView4"
@@ -105,7 +108,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clubButton" />
+        app:layout_constraintTop_toBottomOf="@+id/clubButton"
+        android:contentDescription="Heart button unselected"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -130,7 +134,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heartButton" />
+        app:layout_constraintTop_toBottomOf="@+id/heartButton"
+        android:contentDescription="Joker button unselected"/>
 
     <TextView
         android:id="@+id/textView6"

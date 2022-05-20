@@ -33,42 +33,47 @@ class MainActivity : AppCompatActivity() {
         createDeckButton = findViewById(R.id.createDeckButton)
     }
 
+    inner class Setting(val name: String, val enabled: Boolean)
+
     fun selectSetting(button: View) {
         var unrecognizedID = false
         // Update settings, return updated value
-        val settingEnabled : Boolean = when(button.id) {
+        val setting : Setting = when(button.id) {
             R.id.spadeButton -> {
                 spades = !spades
-                spades
+                Setting("Spade", spades)
             }
             R.id.diamondButton -> {
                 diamonds = !diamonds
-                diamonds
+                Setting("Diamond", diamonds)
             }
             R.id.clubButton -> {
                 clubs = !clubs
-                clubs
+                Setting("Club", clubs)
             }
             R.id.heartButton -> {
                 hearts = !hearts
-                hearts
+                Setting("Heart", hearts)
             }
             R.id.jokerButton -> {
                 jokers = !jokers
-                jokers
+                Setting("Joker", jokers)
             }
             else -> {
                 unrecognizedID = true
-                false
+                Setting("Unknown", false)
             }
         }
+
         // Change button color if it had one of the recognized ids
         if (!unrecognizedID) {
             // The only way I found to change the color of an ImageButton without destroying it's existing styling
-            if (settingEnabled) {
+            if (setting.enabled) {
                 (button as ImageButton).background.setColorFilter(enabledColor, PorterDuff.Mode.SRC)
+                button.contentDescription = "${setting.name} button selected"
             } else {
                 (button as ImageButton).background.clearColorFilter()
+                button.contentDescription = "${setting.name} button unselected"
             }
         }
 
