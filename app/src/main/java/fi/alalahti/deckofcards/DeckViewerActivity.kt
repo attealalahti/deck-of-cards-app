@@ -34,6 +34,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
     lateinit var rotationSensor: Sensor
     val sensorSamplingPeriod = 100000
     var cardImage: Bitmap? = null
+    var remainingCards = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +51,9 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
         rotationSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)
 
         // Initialize how many cards remain in the deck
-        val remaining = intent.getIntExtra("remaining", -1)
-        if (remaining != -1) {
-            updateRemainingCounter(remaining)
+        remainingCards = intent.getIntExtra("remaining", -1)
+        if (remainingCards != -1) {
+            updateRemainingCounter(remainingCards)
         }
 
         pseudo3DSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -110,12 +111,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
 
                 // Update counter with how many cards remain in the deck
                 updateRemainingCounter(it.remaining)
-
-                // Disable shuffle and draw after all cards have been drawn
-                if (it.remaining.toInt() <= 0) {
-                    drawButton.isEnabled = false
-                    shuffleButton.isEnabled = false
-                }
+                remainingCards = it.remaining.toInt()
             })
         }
     }
@@ -132,6 +128,11 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
     fun updateRemainingCounter(count: Number) {
         runOnUiThread {
             remainingCounter.text = "Cards remaining: ${count}"
+            // Disable shuffle and draw after all cards have been drawn
+            if (count.toInt() <= 0) {
+                drawButton.isEnabled = false
+                shuffleButton.isEnabled = false
+            }
         }
     }
 
@@ -163,6 +164,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
         }
         outState.putString("cardName", cardNameView.text.toString())
         outState.putString("cardImageDescription", cardImageView.contentDescription.toString())
+        outState.putInt("remainingCards", remainingCards)
 
         super.onSaveInstanceState(outState)
     }
@@ -177,5 +179,9 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
         }
         cardNameView.text = savedInstanceState.getString("cardName")
         cardImageView.contentDescription = savedInstanceState.getString("cardImageDescription")
+        remainingCards = savedInstanceState.getInt("remainingCards", -1)
+        if (remainingCards != -1) {
+            updateRemainingCounter(remainingCards)
+        }
     }
 }
