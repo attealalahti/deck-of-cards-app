@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -27,10 +28,21 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var createDeckButton: Button
 
+    lateinit var spadeButton: ImageButton
+    lateinit var diamondButton: ImageButton
+    lateinit var clubButton: ImageButton
+    lateinit var heartButton: ImageButton
+    lateinit var jokerButton: ImageButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         createDeckButton = findViewById(R.id.createDeckButton)
+        spadeButton = findViewById(R.id.spadeButton)
+        diamondButton = findViewById(R.id.diamondButton)
+        clubButton = findViewById(R.id.clubButton)
+        heartButton = findViewById(R.id.heartButton)
+        jokerButton = findViewById(R.id.jokerButton)
     }
 
     inner class Setting(val name: String, val enabled: Boolean)
@@ -67,16 +79,24 @@ class MainActivity : AppCompatActivity() {
 
         // Change button color if it had one of the recognized ids
         if (!unrecognizedID) {
-            // The only way I found to change the color of an ImageButton without destroying it's existing styling
-            if (setting.enabled) {
-                (button as ImageButton).background.setColorFilter(enabledColor, PorterDuff.Mode.SRC)
-                button.contentDescription = "${setting.name} button selected"
-            } else {
-                (button as ImageButton).background.clearColorFilter()
-                button.contentDescription = "${setting.name} button unselected"
-            }
+            changeButtonColor(button as ImageButton, setting.enabled, setting.name)
         }
 
+        updateCreateDeckButton()
+    }
+
+    fun changeButtonColor(button: ImageButton, enabled: Boolean, buttonName: String) {
+        // The only way I found to change the color of an ImageButton without destroying it's existing styling
+        if (enabled) {
+            button.background.setColorFilter(enabledColor, PorterDuff.Mode.SRC)
+            button.contentDescription = "$buttonName button selected"
+        } else {
+            button.background.clearColorFilter()
+            button.contentDescription = "$buttonName button unselected"
+        }
+    }
+
+    fun updateCreateDeckButton() {
         // Disable createDeckButton if no settings are enabled
         createDeckButton.isEnabled = spades || diamonds || clubs || hearts || jokers
     }
@@ -92,5 +112,29 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("remaining", it.remaining.toInt())
             startActivity(intent)
         })
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("spades", spades)
+        outState.putBoolean("diamonds", diamonds)
+        outState.putBoolean("clubs", clubs)
+        outState.putBoolean("hearts", hearts)
+        outState.putBoolean("jokers", jokers)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        spades = savedInstanceState.getBoolean("spades", false)
+        diamonds = savedInstanceState.getBoolean("diamonds", false)
+        clubs = savedInstanceState.getBoolean("clubs", false)
+        hearts = savedInstanceState.getBoolean("hearts", false)
+        jokers = savedInstanceState.getBoolean("jokers", false)
+        changeButtonColor(spadeButton, spades, "Spade")
+        changeButtonColor(diamondButton, diamonds, "Diamond")
+        changeButtonColor(clubButton, clubs, "Club")
+        changeButtonColor(heartButton, hearts, "Heart")
+        changeButtonColor(jokerButton, jokers, "Joker")
+        updateCreateDeckButton()
     }
 }
