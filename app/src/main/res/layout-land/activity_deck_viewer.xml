@@ -8,77 +8,81 @@
 
     <ImageView
         android:id="@+id/cardImageView"
-        android:layout_width="226dp"
-        android:layout_height="314dp"
+        android:layout_width="180dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="50dp"
         android:contentDescription="Card back image"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/pseudo3DSwitch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.156"
+        app:layout_constraintVertical_bias="0.494"
         app:srcCompat="@drawable/back" />
 
     <TextView
         android:id="@+id/remainingCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="76dp"
         android:text="Cards remaining: ?"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/cardNameView"
+        app:layout_constraintBottom_toTopOf="@+id/shuffleButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardImageView"
-        app:layout_constraintVertical_bias="0.622" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.578" />
 
     <TextView
         android:id="@+id/cardNameView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="245dp"
+        android:layout_height="102dp"
         android:text=""
         android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/pseudo3DSwitch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardImageView"
-        app:layout_constraintVertical_bias="0.776" />
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drawButton"
+        app:layout_constraintStart_toEndOf="@+id/cardImageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/pseudo3DSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:text="3D"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/shuffleButton"
+        app:layout_constraintBottom_toBottomOf="@+id/shuffleButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintStart_toEndOf="@+id/shuffleButton"
+        app:layout_constraintTop_toTopOf="@+id/shuffleButton"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/shuffleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
+        android:onClick="shuffle"
         android:padding="15dp"
         android:text="Shuffle"
         android:textSize="18sp"
-        android:onClick="shuffle"
         app:layout_constraintBottom_toTopOf="@+id/drawButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/drawButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/drawButton"
         android:layout_width="247dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="44dp"
         android:onClick="drawCard"
         android:padding="15dp"
         android:text="Draw a Card"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.806" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
