@@ -20,4 +20,6 @@
     <string name="button_unselected">button unselected</string>
     <string name="include_title">Include:</string>
     <string name="create_deck_button_text">Create Deck</string>
+    <string name="cards_remaining">Cards remaining:</string>
+    <string name="shuffled_message">Shuffled!</string>
 </resources>
