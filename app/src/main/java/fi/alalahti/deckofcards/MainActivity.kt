@@ -1,6 +1,8 @@
 package fi.alalahti.deckofcards
 
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +11,8 @@ import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.core.content.ContextCompat
+import com.google.android.material.internal.ContextUtils.getActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +27,6 @@ class MainActivity : AppCompatActivity() {
     val CLUB_CODES = "AC,2C,3C,4C,5C,6C,7C,8C,9C,0C,JC,QC,KC"
     val HEART_CODES = "AH,2H,3H,4H,5H,6H,7H,8H,9H,0H,JH,QH,KH"
     val JOKER_CODES = "X1,X2"
-
-    var enabledColor = Color.parseColor("#d166ff")
 
     lateinit var createDeckButton: Button
 
@@ -86,8 +88,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeButtonColor(button: ImageButton, enabled: Boolean, buttonName: String) {
-        // The only way I found to change the color of an ImageButton without destroying it's existing styling
         if (enabled) {
+            // Check device is in night mode or not, choose color based on that
+            val colorId: Int = when(resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
+                Configuration.UI_MODE_NIGHT_YES -> android.R.color.holo_purple
+                else -> R.color.purple_500
+            }
+            val enabledColor = ContextCompat.getColor(applicationContext, colorId)
+            // The only way I found to change the color of an ImageButton without destroying it's existing styling
             button.background.setColorFilter(enabledColor, PorterDuff.Mode.SRC)
             button.contentDescription = "$buttonName ${getString(R.string.button_selected)}"
         } else {
