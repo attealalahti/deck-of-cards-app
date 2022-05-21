@@ -1,22 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE resources [
-    <!ENTITY spade "Spade">
-    <!ENTITY diamond "Diamond">
-    <!ENTITY club "Club">
-    <!ENTITY heart "Heart">
-    <!ENTITY joker "Joker">
-    ]>
 <resources>
     <string name="app_name">Deck of Cards</string>
-    <string name="spade_button_name">&spade;</string>
-    <string name="diamond_button_name">&diamond;</string>
-    <string name="club_button_name">&club;</string>
-    <string name="heart_button_name">&heart;</string>
-    <string name="joker_button_name">&joker;</string>
+    <string name="spade_button_name">Spade</string>
+    <string name="diamond_button_name">Diamond</string>
+    <string name="club_button_name">Club</string>
+    <string name="heart_button_name">Heart</string>
+    <string name="joker_button_name">Joker</string>
     <string name="unknown_button_name">Unknown</string>
-    <string name="spades">&spade;s</string>
-    <string name="diamonds">&diamond;s</string>
-    <string name="clubs">&club;s</string>
-    <string name="hearts">&heart;s</string>
-    <string name="jokers">&joker;s</string>
+    <string name="spades">Spades</string>
+    <string name="diamonds">Diamonds</string>
+    <string name="clubs">Clubs</string>
+    <string name="hearts">Hearts</string>
+    <string name="jokers">Jokers</string>
+    <string name="default_spade_button_description">Spade button unselected</string>
+    <string name="default_diamond_button_description">Diamond button unselected</string>
+    <string name="default_club_button_description">Club button unselected</string>
+    <string name="default_heart_button_description">Heart button unselected</string>
+    <string name="default_joker_button_description">Joker button unselected</string>
+    <string name="button_selected">button selected</string>
+    <string name="button_unselected">button unselected</string>
+    <string name="include_title">Include:</string>
+    <string name="create_deck_button_text">Create Deck</string>
 </resources>
