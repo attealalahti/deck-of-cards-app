@@ -2,17 +2,13 @@ package fi.alalahti.deckofcards
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
-import com.google.android.material.internal.ContextUtils.getActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,8 +43,12 @@ class MainActivity : AppCompatActivity() {
         jokerButton = findViewById(R.id.jokerButton)
     }
 
-    inner class Setting(val nameId: Int, val enabled: Boolean)
+    // nameId is the id of the string in string resources that should be used
+    inner class Setting(val nameId: Int, val checked: Boolean)
 
+    // Triggered when clicking one of the five settings buttons.
+    // Toggles the button's setting, changes its color and
+    // enables/disables the Create Deck button when appropriate.
     fun selectSetting(button: View) {
         var unrecognizedID = false
         // Update settings, return updated value and the name of the pressed button
@@ -81,14 +81,17 @@ class MainActivity : AppCompatActivity() {
 
         // Change button color if it had one of the recognized ids
         if (!unrecognizedID) {
-            changeButtonColor(button as ImageButton, setting.enabled, getString(setting.nameId))
+            changeButtonColor(button as ImageButton, setting.checked, getString(setting.nameId))
         }
 
+        // Update whether or not the Create Deck button should be disabled.
         updateCreateDeckButton()
     }
 
-    fun changeButtonColor(button: ImageButton, enabled: Boolean, buttonName: String) {
-        if (enabled) {
+    // Changes the color of a button based on if it should be checked or not.
+    // Updates the content description of the button to reflect the change.
+    fun changeButtonColor(button: ImageButton, checked: Boolean, buttonName: String) {
+        if (checked) {
             // Check device is in night mode or not, choose color based on that
             val colorId: Int = when(resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
                 Configuration.UI_MODE_NIGHT_YES -> android.R.color.holo_purple
@@ -104,24 +107,30 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Disables Create Deck button if no settings are checked, otherwise enables it.
     fun updateCreateDeckButton() {
-        // Disable createDeckButton if no settings are enabled
         createDeckButton.isEnabled = spades || diamonds || clubs || hearts || jokers
     }
 
+    // Triggered by the Create Deck button.
+    // Opens the Deck Viewer Activity with the currently chosen settings.
     fun createDeck(button : View) {
+        // Create the settings map with card codes of the different suits based on the chosen settings.
         val settings : MutableMap<String, String> = mutableMapOf()
         settings["cards"] = "${if (spades) SPADE_CODES else ""},${if (diamonds) DIAMOND_CODES else ""},${if (clubs) CLUB_CODES else ""},${if (hearts) HEART_CODES else ""},${if (jokers) JOKER_CODES else ""}"
         settings["jokers_enabled"] = jokers.toString()
-
+        // The settings map is used as query parameters for the API call.
         APIService.getInstance().createDeck(settings).enqueue(APICallback {
             val intent = Intent(this, DeckViewerActivity::class.java)
+            // Open Deck Viewer with the received deck id and how many cards are in the deck
             intent.putExtra("deck_id", it.deck_id)
             intent.putExtra("remaining", it.remaining.toInt())
             startActivity(intent)
         })
     }
 
+    // Save the state of the settings so they can be restored if the activity is destroyed,
+    // like when device orientation changes.
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean("spades", spades)
         outState.putBoolean("diamonds", diamonds)
@@ -131,6 +140,7 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
+    // Restore settings and change button colors to match them.
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         spades = savedInstanceState.getBoolean("spades", false)
