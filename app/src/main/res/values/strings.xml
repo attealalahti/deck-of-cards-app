@@ -21,5 +21,9 @@
     <string name="include_title">Include:</string>
     <string name="create_deck_button_text">Create Deck</string>
     <string name="cards_remaining">Cards remaining:</string>
+    <string name="shuffle_button_text">Shuffle</string>
     <string name="shuffled_message">Shuffled!</string>
+    <string name="default_card_image_description">Card back image</string>
+    <string name="pseudo_3D_switch_text">3D</string>
+    <string name="draw_card_button_text">Draw a Card</string>
 </resources>
