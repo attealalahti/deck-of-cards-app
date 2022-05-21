@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -22,15 +23,15 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="24dp"
+        android:contentDescription="@string/default_spade_button_description"
+        android:onClick="selectSetting"
         android:padding="20dp"
         android:scaleType="fitCenter"
         android:src="@drawable/spade"
-        android:onClick="selectSetting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/includeTextView"
-        android:contentDescription="@string/default_spade_button_description" />
+        app:layout_constraintTop_toBottomOf="@+id/includeTextView" />
 
     <TextView
         android:id="@+id/textView"
@@ -48,23 +49,23 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/default_diamond_button_description"
+        android:onClick="selectSetting"
         android:padding="20dp"
         android:scaleType="fitCenter"
         android:src="@drawable/diamond"
-        android:onClick="selectSetting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spadeButton"
-        android:contentDescription="@string/default_diamond_button_description"/>
+        app:layout_constraintTop_toBottomOf="@+id/spadeButton" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/diamonds"
         android:textSize="24sp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/diamondButton"
         app:layout_constraintStart_toEndOf="@+id/diamondButton"
         app:layout_constraintTop_toTopOf="@+id/diamondButton" />
@@ -74,23 +75,23 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/default_club_button_description"
+        android:onClick="selectSetting"
         android:padding="20dp"
         android:scaleType="fitCenter"
         android:src="@drawable/club"
-        android:onClick="selectSetting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diamondButton"
-        android:contentDescription="@string/default_club_button_description"/>
+        app:layout_constraintTop_toBottomOf="@+id/diamondButton" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/clubs"
         android:textSize="24sp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/clubButton"
         app:layout_constraintStart_toEndOf="@+id/clubButton"
         app:layout_constraintTop_toTopOf="@+id/clubButton" />
@@ -100,23 +101,23 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/default_heart_button_description"
+        android:onClick="selectSetting"
         android:padding="20dp"
         android:scaleType="fitCenter"
         android:src="@drawable/heart"
-        android:onClick="selectSetting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clubButton"
-        android:contentDescription="@string/default_heart_button_description"/>
+        app:layout_constraintTop_toBottomOf="@+id/clubButton" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/hearts"
         android:textSize="24sp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/heartButton"
         app:layout_constraintStart_toEndOf="@+id/heartButton"
         app:layout_constraintTop_toTopOf="@+id/heartButton" />
@@ -126,23 +127,23 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/default_joker_button_description"
+        android:onClick="selectSetting"
         android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/joker"
-        android:onClick="selectSetting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heartButton"
-        android:contentDescription="@string/default_joker_button_description"/>
+        app:layout_constraintTop_toBottomOf="@+id/heartButton" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/jokers"
         android:textSize="24sp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/jokerButton"
         app:layout_constraintStart_toEndOf="@+id/jokerButton"
         app:layout_constraintTop_toTopOf="@+id/jokerButton" />

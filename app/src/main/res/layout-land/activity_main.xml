@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainActivityLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -66,9 +67,9 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/diamonds"
         android:textSize="24sp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/diamondButton"
         app:layout_constraintStart_toEndOf="@+id/diamondButton"
         app:layout_constraintTop_toTopOf="@+id/diamondButton" />
@@ -92,9 +93,9 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/clubs"
         android:textSize="24sp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/clubButton"
         app:layout_constraintStart_toEndOf="@+id/clubButton"
         app:layout_constraintTop_toTopOf="@+id/clubButton" />
@@ -118,9 +119,9 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/hearts"
         android:textSize="24sp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/heartButton"
         app:layout_constraintStart_toEndOf="@+id/heartButton"
         app:layout_constraintTop_toTopOf="@+id/heartButton" />
@@ -145,9 +146,9 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/jokers"
         android:textSize="24sp"
-        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/jokerButton"
         app:layout_constraintStart_toEndOf="@+id/jokerButton"
         app:layout_constraintTop_toTopOf="@+id/jokerButton" />

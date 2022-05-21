@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     val HEART_CODES = "AH,2H,3H,4H,5H,6H,7H,8H,9H,0H,JH,QH,KH"
     val JOKER_CODES = "X1,X2"
 
+    lateinit var layout: View
     lateinit var createDeckButton: Button
 
     lateinit var spadeButton: ImageButton
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        layout = findViewById(R.id.mainActivityLayout)
         createDeckButton = findViewById(R.id.createDeckButton)
         spadeButton = findViewById(R.id.spadeButton)
         diamondButton = findViewById(R.id.diamondButton)
@@ -120,12 +122,16 @@ class MainActivity : AppCompatActivity() {
         settings["cards"] = "${if (spades) SPADE_CODES else ""},${if (diamonds) DIAMOND_CODES else ""},${if (clubs) CLUB_CODES else ""},${if (hearts) HEART_CODES else ""},${if (jokers) JOKER_CODES else ""}"
         settings["jokers_enabled"] = jokers.toString()
         // The settings map is used as query parameters for the API call.
-        APIService.getInstance().createDeck(settings).enqueue(APICallback {
-            val intent = Intent(this, DeckViewerActivity::class.java)
-            // Open Deck Viewer with the received deck id and how many cards are in the deck
-            intent.putExtra("deck_id", it.deck_id)
-            intent.putExtra("remaining", it.remaining.toInt())
-            startActivity(intent)
+        APIService.getInstance().createDeck(settings).enqueue(APICallback(layout) {
+            if (it.success) {
+                val intent = Intent(this, DeckViewerActivity::class.java)
+                // Open Deck Viewer with the received deck id and how many cards are in the deck
+                intent.putExtra("deck_id", it.deck_id)
+                intent.putExtra("remaining", it.remaining.toInt())
+                startActivity(intent)
+            } else {
+                ErrorMessenger.showErrorMessage(layout)
+            }
         })
     }
 

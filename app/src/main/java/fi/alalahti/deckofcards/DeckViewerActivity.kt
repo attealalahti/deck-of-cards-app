@@ -9,7 +9,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -19,11 +18,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import java.io.ByteArrayOutputStream
 import java.lang.Exception
-import java.util.*
 import kotlin.concurrent.thread
 
 class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
 
+    lateinit var layout: View
     lateinit var cardImageView: ImageView
     lateinit var remainingCounter: TextView
     lateinit var cardNameView: TextView
@@ -40,6 +39,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_deck_viewer)
+        layout = findViewById(R.id.deckViewerActivityLayout)
         cardImageView = findViewById(R.id.cardImageView)
         remainingCounter = findViewById(R.id.remainingCounter)
         cardNameView = findViewById(R.id.cardNameView)
@@ -91,37 +91,45 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
 
     fun drawCard(button: View) {
         if (deck_id != null) {
-            APIService.getInstance().drawCard(deck_id!!).enqueue(APICallback {
-                val card = it.cards[0]
+            APIService.getInstance().drawCard(deck_id!!).enqueue(APICallback(layout) {
+                if (it.success) {
+                    val card = it.cards[0]
 
-                // Update imageView with the drawn card's image
-                thread {
-                    try {
-                        val stream = java.net.URL(card.image).openStream()
-                        val newImage = BitmapFactory.decodeStream(stream)
-                        cardImage = newImage
-                        runOnUiThread {
-                            cardImageView.setImageBitmap(newImage)
-                            cardNameView.text = getCardName(card.value, card.suit)
-                            cardImageView.contentDescription = getCardName(card.value, card.suit)
+                    // Update imageView with the drawn card's image
+                    thread {
+                        try {
+                            val stream = java.net.URL(card.image).openStream()
+                            val newImage = BitmapFactory.decodeStream(stream)
+                            cardImage = newImage
+                            runOnUiThread {
+                                cardImageView.setImageBitmap(newImage)
+                                cardNameView.text = getCardName(card.value, card.suit)
+                                cardImageView.contentDescription = getCardName(card.value, card.suit)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
                     }
-                }
 
-                // Update counter with how many cards remain in the deck
-                updateRemainingCounter(it.remaining)
-                remainingCards = it.remaining.toInt()
+                    // Update counter with how many cards remain in the deck
+                    updateRemainingCounter(it.remaining)
+                    remainingCards = it.remaining.toInt()
+                } else {
+                    ErrorMessenger.showErrorMessage(layout)
+                }
             })
         }
     }
 
     fun shuffle(button: View) {
         if (deck_id != null) {
-            APIService.getInstance().shuffleDeck(deck_id!!).enqueue(APICallback {
-                // Show a little pop-up when shuffling is complete
-                Toast.makeText(applicationContext, getString(R.string.shuffled_message), Toast.LENGTH_SHORT).show()
+            APIService.getInstance().shuffleDeck(deck_id!!).enqueue(APICallback(layout) {
+                if (it.success) {
+                    // Show a little pop-up when shuffling is complete
+                    Toast.makeText(applicationContext, getString(R.string.shuffled_message), Toast.LENGTH_SHORT).show()
+                } else {
+                    ErrorMessenger.showErrorMessage(layout)
+                }
             })
         }
     }

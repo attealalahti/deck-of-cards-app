@@ -26,4 +26,5 @@
     <string name="default_card_image_description">Card back image</string>
     <string name="pseudo_3D_switch_text">3D</string>
     <string name="draw_card_button_text">Draw a Card</string>
+    <string name="error_message">An error occurred.</string>
 </resources>
