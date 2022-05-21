@@ -89,10 +89,10 @@ class MainActivity : AppCompatActivity() {
         // The only way I found to change the color of an ImageButton without destroying it's existing styling
         if (enabled) {
             button.background.setColorFilter(enabledColor, PorterDuff.Mode.SRC)
-            button.contentDescription = "$buttonName button selected"
+            button.contentDescription = "$buttonName ${getString(R.string.button_selected)}"
         } else {
             button.background.clearColorFilter()
-            button.contentDescription = "$buttonName button unselected"
+            button.contentDescription = "$buttonName ${getString(R.string.button_unselected)}"
         }
     }
 
