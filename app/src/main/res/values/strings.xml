@@ -1,9 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY spade "Spade">
+    <!ENTITY diamond "Diamond">
+    <!ENTITY club "Club">
+    <!ENTITY heart "Heart">
+    <!ENTITY joker "Joker">
+    ]>
 <resources>
     <string name="app_name">Deck of Cards</string>
-    <string name="spade_button_name">Spade</string>
-    <string name="diamond_button_name">Diamond</string>
-    <string name="club_button_name">Club</string>
-    <string name="heart_button_name">Heart</string>
-    <string name="joker_button_name">Joker</string>
+    <string name="spade_button_name">&spade;</string>
+    <string name="diamond_button_name">&diamond;</string>
+    <string name="club_button_name">&club;</string>
+    <string name="heart_button_name">&heart;</string>
+    <string name="joker_button_name">&joker;</string>
     <string name="unknown_button_name">Unknown</string>
+    <string name="spades">&spade;s</string>
+    <string name="diamonds">&diamond;s</string>
+    <string name="clubs">&club;s</string>
+    <string name="hearts">&heart;s</string>
+    <string name="jokers">&joker;s</string>
 </resources>
