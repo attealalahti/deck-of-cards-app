@@ -45,41 +45,41 @@ class MainActivity : AppCompatActivity() {
         jokerButton = findViewById(R.id.jokerButton)
     }
 
-    inner class Setting(val name: String, val enabled: Boolean)
+    inner class Setting(val nameId: Int, val enabled: Boolean)
 
     fun selectSetting(button: View) {
         var unrecognizedID = false
-        // Update settings, return updated value
+        // Update settings, return updated value and the name of the pressed button
         val setting : Setting = when(button.id) {
             R.id.spadeButton -> {
                 spades = !spades
-                Setting("Spade", spades)
+                Setting(R.string.spade_button_name, spades)
             }
             R.id.diamondButton -> {
                 diamonds = !diamonds
-                Setting("Diamond", diamonds)
+                Setting(R.string.diamond_button_name, diamonds)
             }
             R.id.clubButton -> {
                 clubs = !clubs
-                Setting("Club", clubs)
+                Setting(R.string.club_button_name, clubs)
             }
             R.id.heartButton -> {
                 hearts = !hearts
-                Setting("Heart", hearts)
+                Setting(R.string.heart_button_name, hearts)
             }
             R.id.jokerButton -> {
                 jokers = !jokers
-                Setting("Joker", jokers)
+                Setting(R.string.joker_button_name, jokers)
             }
             else -> {
                 unrecognizedID = true
-                Setting("Unknown", false)
+                Setting(R.string.unknown_button_name, false)
             }
         }
 
         // Change button color if it had one of the recognized ids
         if (!unrecognizedID) {
-            changeButtonColor(button as ImageButton, setting.enabled, setting.name)
+            changeButtonColor(button as ImageButton, setting.enabled, getString(setting.nameId))
         }
 
         updateCreateDeckButton()
@@ -130,11 +130,11 @@ class MainActivity : AppCompatActivity() {
         clubs = savedInstanceState.getBoolean("clubs", false)
         hearts = savedInstanceState.getBoolean("hearts", false)
         jokers = savedInstanceState.getBoolean("jokers", false)
-        changeButtonColor(spadeButton, spades, "Spade")
-        changeButtonColor(diamondButton, diamonds, "Diamond")
-        changeButtonColor(clubButton, clubs, "Club")
-        changeButtonColor(heartButton, hearts, "Heart")
-        changeButtonColor(jokerButton, jokers, "Joker")
+        changeButtonColor(spadeButton, spades, getString(R.string.spade_button_name))
+        changeButtonColor(diamondButton, diamonds, getString(R.string.diamond_button_name))
+        changeButtonColor(clubButton, clubs, getString(R.string.club_button_name))
+        changeButtonColor(heartButton, hearts, getString(R.string.heart_button_name))
+        changeButtonColor(jokerButton, jokers, getString(R.string.joker_button_name))
         updateCreateDeckButton()
     }
 }
