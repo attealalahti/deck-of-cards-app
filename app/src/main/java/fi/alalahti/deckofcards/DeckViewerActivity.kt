@@ -121,14 +121,14 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
         if (deck_id != null) {
             APIService.getInstance().shuffleDeck(deck_id!!).enqueue(APICallback {
                 // Show a little pop-up when shuffling is complete
-                Toast.makeText(applicationContext, "Shuffled!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.shuffled_message), Toast.LENGTH_SHORT).show()
             })
         }
     }
 
     fun updateRemainingCounter(count: Number) {
         runOnUiThread {
-            remainingCounter.text = "Cards remaining: ${count}"
+            remainingCounter.text = "${getString(R.string.cards_remaining)} $count"
             // Disable shuffle and draw after all cards have been drawn
             if (count.toInt() <= 0) {
                 drawButton.isEnabled = false
