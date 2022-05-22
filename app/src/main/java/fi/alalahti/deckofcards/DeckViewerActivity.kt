@@ -147,12 +147,15 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         if (event?.sensor?.type == Sensor.TYPE_ROTATION_VECTOR) {
-            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                cardImageView.rotationX = event.values[0] * 90
-                cardImageView.rotationY = event.values[1] * -90
-            } else if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                cardImageView.rotationX = event.values[1] * -90
-                cardImageView.rotationY = event.values[0] * -90
+            when(resources.configuration.orientation) {
+                Configuration.ORIENTATION_LANDSCAPE -> {
+                    cardImageView.rotationX = event.values[1] * -90
+                    cardImageView.rotationY = event.values[0] * -90
+                }
+                else -> {
+                    cardImageView.rotationX = event.values[0] * 90
+                    cardImageView.rotationY = event.values[1] * -90
+                }
             }
         }
     }
