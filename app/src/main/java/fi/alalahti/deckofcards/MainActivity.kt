@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // Save the state of the settings so they can be restored if the activity is destroyed,
+    // Saves the state of the settings so they can be restored if the activity is destroyed,
     // like when device orientation changes.
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean("spades", spades)
@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
-    // Restore settings and change button colors to match them.
+    // Restores settings and changes button colors to match them.
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         spades = savedInstanceState.getBoolean("spades", false)
