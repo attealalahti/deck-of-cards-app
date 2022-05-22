@@ -38,7 +38,7 @@ class DeckViewerActivity : AppCompatActivity(), SensorEventListener {
     var deck_id: String? = null
     lateinit var sensorManager: SensorManager
     lateinit var rotationSensor: Sensor
-    val sensorSamplingPeriod = 100000
+    val sensorSamplingPeriod = 10000
     var cardImage: Bitmap? = null
     var remainingCards = -1
 
