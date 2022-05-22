@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 // be included in a created deck and
 // a button that creates that deck
 // and opens the Deck Viewer Activity.
-class MainActivity : AppCompatActivity() {
+class DeckCreatorActivity : AppCompatActivity() {
 
     var spades = false
     var diamonds = false
