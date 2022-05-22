@@ -101,7 +101,7 @@ class DeckCreatorActivity : AppCompatActivity() {
         if (checked) {
             // Check device is in night mode or not, choose color based on that
             val colorId: Int = when(resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                Configuration.UI_MODE_NIGHT_YES -> android.R.color.holo_purple
+                Configuration.UI_MODE_NIGHT_YES -> R.color.purple_200
                 else -> R.color.purple_500
             }
             val enabledColor = ContextCompat.getColor(applicationContext, colorId)
