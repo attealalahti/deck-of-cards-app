@@ -10,6 +10,11 @@ import android.widget.Button
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 
+// Activity that the app starts in.
+// Has five buttons for selecting which cards should
+// be included in a created deck and
+// a button that creates that deck
+// and opens the Deck Viewer Activity.
 class MainActivity : AppCompatActivity() {
 
     var spades = false
