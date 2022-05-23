@@ -100,10 +100,8 @@ class DeckCreatorActivity : AppCompatActivity() {
     fun changeButtonColor(button: ImageButton, checked: Boolean, buttonName: String) {
         if (checked) {
             // Check device is in night mode or not, choose color based on that
-            val colorId: Int = when(resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK)) {
-                Configuration.UI_MODE_NIGHT_YES -> R.color.purple_200
-                else -> R.color.purple_500
-            }
+            val colorId: Int = if(resources.configuration.uiMode.and(Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES)
+                R.color.purple_200 else R.color.purple_500
             val enabledColor = ContextCompat.getColor(applicationContext, colorId)
             // The only way I found to change the color of an ImageButton without destroying it's existing styling
             button.background.setColorFilter(enabledColor, PorterDuff.Mode.SRC)
