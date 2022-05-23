@@ -11,3 +11,10 @@ Atte Ala-Lahti
 The app is created with Kotlin in Android Studio.
 To manipulate decks of cards, the app uses Deck of Cards api:
 https://deckofcardsapi.com/
+
+# Google Play
+The app will be available to download from Google Play once the publishing process is complete:
+https://play.google.com/store/apps/details?id=fi.alalahti.deckofcards
+
+# Screencast
+https://youtu.be/byJttLaVShs
