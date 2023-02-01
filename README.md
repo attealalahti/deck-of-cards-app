@@ -14,7 +14,7 @@ https://deckofcardsapi.com/
 
 # Google Play
 The app is available to download from Google Play:
-https://play.google.com/store/apps/details?id=fi.alalahti.deckofcards
+https://play.google.com/store/apps/details?id=fi.alalahti.deckofcards (currently unavailable until Google Play checks have gone through)
 
 # Screenshots
 <img src="screenshots/menu.png" alt="Deck creator menu" width="400"/>
